@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.sql.Timestamp;
+
 @Entity
 @Table(name = "category")
 @Getter
@@ -19,5 +21,6 @@ public class CategoryEntity {
     @Column(name = "name")
     private String categoryName;
 
-    // last_update 생략
+    @Column(name="last_update", nullable = false)
+    private Timestamp lastUpdate;
 }

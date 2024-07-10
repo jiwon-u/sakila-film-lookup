@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
+@IdClass(FilmCategoryPK.class)
 public class FilmCategoryEntity {
 
     @Id
@@ -21,4 +22,5 @@ public class FilmCategoryEntity {
     @ManyToOne
     @JoinColumn(name = "film_id", referencedColumnName = "film_id")
     private FilmEntity filmEntityId;
+
 }

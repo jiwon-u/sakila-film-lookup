@@ -24,8 +24,9 @@ public class FilmEntity {
     @Column(name = "release_year", nullable = false)
     private Long releaseYear;
 
-    @Column(name = "language_id", nullable = false)
-    private Long languageId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "language_id", referencedColumnName = "language_id", nullable = false)
+    private LanguageEntity language;
 
     @Column(nullable = false)
     private Long length;
