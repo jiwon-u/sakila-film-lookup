@@ -1,4 +1,4 @@
-package com.example.sakila_film.entity;
+package com.ipp.sakila_film.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

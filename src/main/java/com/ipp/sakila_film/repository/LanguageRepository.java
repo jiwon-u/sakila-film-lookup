@@ -1,6 +1,6 @@
-package com.example.sakila_film.repository;
+package com.ipp.sakila_film.repository;
 
-import com.example.sakila_film.entity.LanguageEntity;
+import com.ipp.sakila_film.entity.LanguageEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

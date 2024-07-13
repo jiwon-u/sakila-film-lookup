@@ -1,0 +1,35 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Sakila Film Search</title>
+</head>
+<body>
+    <h1>Sakila-Film Search</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>title</th>
+                <th>rating</th>
+                <th>length</th>
+                <th>language</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="film : ${film_list}">
+                <td th:text="${film.title}"></td>
+                <td th:text="${film.rating}"></td>
+                <td th:text="${film.length}"></td>
+                <td th:text="${film.language}"></td>
+                <td></td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+
+
+
+
+
+</html>
+

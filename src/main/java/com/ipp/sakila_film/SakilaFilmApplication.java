@@ -1,4 +1,4 @@
-package com.example.sakila_film;
+package com.ipp.sakila_film;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

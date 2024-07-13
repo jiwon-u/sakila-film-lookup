@@ -1,7 +1,7 @@
-package com.example.sakila_film;
+package com.ipp.sakila_film;
 
-import com.example.sakila_film.entity.LanguageEntity;
-import com.example.sakila_film.repository.LanguageRepository;
+import com.ipp.sakila_film.entity.LanguageEntity;
+import com.ipp.sakila_film.repository.LanguageRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

@@ -1,4 +1,4 @@
-package com.example.sakila_film.entity;
+package com.ipp.sakila_film.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -21,8 +21,6 @@ public class LanguageEntity {
     @Column(name="name")
     private String languageName;
 
-    @Column(name="last_update", nullable = false)
-    private Timestamp lastUpdate;
 
     // last_update 생략
 }
