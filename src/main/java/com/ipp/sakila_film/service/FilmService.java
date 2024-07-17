@@ -26,7 +26,6 @@ public class FilmService {
         return this.filmRepository.getFilmSummaryList(kw, pageable);
     }
 
-
     public List<FilmAdditionalDetailDTO> getFilmAdditionalDetail(Long filmId) {
         return this.filmRepository.getFilmAdditionalDetail(filmId);
     }

@@ -32,7 +32,7 @@ public interface FilmRepository extends JpaRepository<FilmEntity, Long>{
 
 
     @Query("SELECT new com.ipp.sakila_film.dto.FilmAdditionalDetailDTO(" +
-            " f.description, f.specialFeatures, " +
+            " f.filmId, f.description, f.specialFeatures, " +
             " CONCAT(a.firstName, ' ', a.lastName)) " +
             "FROM FilmEntity f " +
             "JOIN LanguageEntity l ON f.language = l " +
