@@ -31,20 +31,6 @@ public interface FilmRepository extends JpaRepository<FilmEntity, Long>{
     Page<FilmSummaryDTO> getFilmSummaryList(@Param("kw") String kw, Pageable pageable);
 
 
-    @Query("SELECT new com.ipp.sakila_film.dto.FilmDetailDTO(" +
-            " f.title, f.description, f.length, f.releaseYear, f.rating, f.specialFeatures, " +
-            " l.languageName," +
-            " c.categoryName," +
-            " CONCAT(a.firstName, ' ', a.lastName)) " +
-            "FROM FilmEntity f " +
-            "JOIN LanguageEntity l ON f.language = l " +
-            "JOIN FilmCategoryEntity fc ON fc.filmEntityId = f " +
-            "JOIN CategoryEntity c ON fc.categoryEntityId = c " +
-            "JOIN FilmActorEntity fa ON fa.filmEntity = f " +
-            "JOIN ActorEntity a ON fa.actorEntity = a " +
-            "WHERE f.filmId = :filmId")
-    List<FilmDetailDTO> getFilmDetail(@Param("filmId") Long filmId);
-
     @Query("SELECT new com.ipp.sakila_film.dto.FilmAdditionalDetailDTO(" +
             " f.description, f.specialFeatures, " +
             " CONCAT(a.firstName, ' ', a.lastName)) " +

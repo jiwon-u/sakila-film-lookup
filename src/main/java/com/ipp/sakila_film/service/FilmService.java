@@ -26,18 +26,10 @@ public class FilmService {
         return this.filmRepository.getFilmSummaryList(kw, pageable);
     }
 
-    public List<FilmDetailDTO> getFilmDetail(Long filmID) {
 
-        Long filmId = Long.valueOf(1);
-        return this.filmRepository.getFilmDetail(filmId);
-    }
-
-    public List<FilmAdditionalDetailDTO> getFilmAdditionalDetail(Long filmID) {
-
-        Long filmId = Long.valueOf(1);
+    public List<FilmAdditionalDetailDTO> getFilmAdditionalDetail(Long filmId) {
         return this.filmRepository.getFilmAdditionalDetail(filmId);
     }
-
 
 }
 

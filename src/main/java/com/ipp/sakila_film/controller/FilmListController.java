@@ -26,11 +26,16 @@ public class FilmListController {
                               @RequestParam(value="filmId", defaultValue = "") Long filmId) {
 
         Page<FilmSummaryDTO> filmListPage = this.filmService.getFilmSummaryList(page, kw);
-        List<FilmAdditionalDetailDTO> filmDetail = this.filmService.getFilmAdditionalDetail(filmId);
-
         model.addAttribute("film_page", filmListPage);
         model.addAttribute("kw", kw);
-        model.addAttribute("film_detail", filmDetail);
+
+        //List<FilmAdditionalDetailDTO> filmDetail = this.filmService.getFilmAdditionalDetail(filmId);
+        //model.addAttribute("film_detail", filmDetail);
+
+        if (filmId != null) {
+            List<FilmAdditionalDetailDTO> filmDetail = this.filmService.getFilmAdditionalDetail(filmId);
+            model.addAttribute("film_detail", filmDetail);
+        }
 
         return "sakila_main";
     }
