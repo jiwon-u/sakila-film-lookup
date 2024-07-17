@@ -8,10 +8,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class FilmSummaryDTO {
+    private Long filmId;
     private String title;
     private Long length;
     private Long year;
-    private String language;
     private String rating;
+    private String language;
     private String category;
 }

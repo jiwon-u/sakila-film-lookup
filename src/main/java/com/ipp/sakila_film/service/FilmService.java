@@ -1,12 +1,18 @@
 package com.ipp.sakila_film.service;
 
-import java.util.List;
-
+import com.ipp.sakila_film.dto.FilmAdditionalDetailDTO;
+import com.ipp.sakila_film.dto.FilmDetailDTO;
 import com.ipp.sakila_film.dto.FilmSummaryDTO;
 import com.ipp.sakila_film.repository.FilmRepository;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @RequiredArgsConstructor
 @Service
@@ -14,7 +20,26 @@ public class FilmService {
 
     private final FilmRepository filmRepository;
 
-    public List<FilmSummaryDTO> getSummaryList() {
-        return this.filmRepository.getFilmSummaryList();
+    public Page<FilmSummaryDTO> getFilmSummaryList(int page, String kw) {
+
+        Pageable pageable = PageRequest.of(page, 10);
+        return this.filmRepository.getFilmSummaryList(kw, pageable);
     }
+
+    public List<FilmDetailDTO> getFilmDetail(Long filmID) {
+
+        Long filmId = Long.valueOf(1);
+        return this.filmRepository.getFilmDetail(filmId);
+    }
+
+    public List<FilmAdditionalDetailDTO> getFilmAdditionalDetail(Long filmID) {
+
+        Long filmId = Long.valueOf(1);
+        return this.filmRepository.getFilmAdditionalDetail(filmId);
+    }
+
+
 }
+
+
+

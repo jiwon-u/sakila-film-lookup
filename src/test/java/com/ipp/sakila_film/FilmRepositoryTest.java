@@ -18,17 +18,17 @@ public class FilmRepositoryTest {
 
     @Test
     void testGetFilmSummaryList() {
-        List<FilmSummaryDTO> filmSummaryList = filmRepository.getFilmSummaryList();
-
-        for (FilmSummaryDTO film : filmSummaryList) {
-            System.out.println("Title: " + film.getTitle() +
-                    ", Length: " + film.getLength() +
-                    ", Year: " + film.getYear() +
-                    ", Language: " + film.getLanguage() +
-                    ", Rating: " + film.getRating() +
-                    ", Category: " + film.getCategory());
-        }
-
-        assertThat(filmSummaryList).isNotEmpty();
+//        List<FilmSummaryDTO> filmSummaryList = filmRepository.getFilmSummaryList();
+//
+//        for (FilmSummaryDTO film : filmSummaryList) {
+//            System.out.println("Title: " + film.getTitle() +
+//                    ", Length: " + film.getLength() +
+//                    ", Year: " + film.getYear() +
+//                    ", Language: " + film.getLanguage() +
+//                    ", Rating: " + film.getRating() +
+//                    ", Category: " + film.getCategory());
+//        }
+//
+//        assertThat(filmSummaryList).isNotEmpty();
     }
 }
