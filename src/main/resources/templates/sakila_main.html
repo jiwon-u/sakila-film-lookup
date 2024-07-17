@@ -98,6 +98,7 @@
     <form th:action="@{/sakila}" method="get" id="searchForm">
         <input type="hidden" id="kw" name="kw" th:value="${kw}">
         <input type="hidden" id="page" name="page" th:value="${film_page.number}">
+        <input type="hidden" id="filmId" name="filmId">
     </form>
     <!-- 검색 폼 끝 -->
 
@@ -132,6 +133,10 @@
                 // 클릭된 행의 데이터 속성에서 filmId를 가져오기
                 var filmId = row.getAttribute('data-film-id');
 
+                // filmID 업뎃
+                document.getElementById('filmId').value = filmId;
+                document.getElementById('searchForm').submit();
+
                 // 해당 filmId에 맞는 collapse 요소 선택
                 var targetCollapse = document.getElementById(`collapse-${filmId}`);
 
@@ -144,6 +149,8 @@
                     }
 
                     // 클릭된 collapse 토글
+
+
                     var bsTargetCollapse = new bootstrap.Collapse(targetCollapse);
                     bsTargetCollapse.toggle();
                 }
