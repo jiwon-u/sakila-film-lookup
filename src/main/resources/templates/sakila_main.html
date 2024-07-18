@@ -26,6 +26,10 @@
         table th{
             font-weight: 500;
         }
+        b {
+            padding-top: 5px;
+            padding-bottom: 5px;
+        }
 
     </style>
 </head>
@@ -57,28 +61,29 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:each="film, loop : ${film_page.content}" th:data-film-id="${film.filmId}" data-bs-toggle="collapse" th:data-bs-target="'#collapse-' + ${film.filmId}" >
-            <td th:text="${(film_page.number * film_page.size) + loop.index + 1}"></td>
-            <td th:text="${film.title}"></td>
-            <td th:text="${film.year}"></td>
-            <td th:text="${film.rating}"></td>
-            <td th:text="${film.length}"></td>
-            <td th:text="${film.language}"></td>
-            <td th:text="${film.category}"></td>
-        </tr>
-        <div th:each="film : ${film_page.content}" th:id="'collapse-' + ${film.filmId}" class="collapse">
-            <td colspan="7">
-                <div class="card card-body">
-                <h5 th:text="${film.title}"></h5>
-                <b> Description </b>
-                <div id="description"> </div>
-                <b> Special Features </b>
-                <div id="specialFeatures"> </div>
-                <b> Actor </b>
-                <div id="actorName"> </div>
-                </div>
-            </td>
-        </div>
+        <th:block th:each="film, loop : ${film_page.content}">
+            <tr th:data-film-id="${film.filmId}" data-bs-toggle="collapse" th:data-bs-target="'#collapse-' + ${film.filmId}" >
+                <td th:text="${(film_page.number * film_page.size) + loop.index + 1}"></td>
+                <td th:utext="${film.title}"> </td>
+                <td th:text="${film.year}"></td>
+                <td th:text="${film.rating}"></td>
+                <td th:text="${film.length}"></td>
+                <td th:text="${film.language}"></td>
+                <td th:text="${film.category}"></td>
+            </tr>
+            <tr th:id="'collapse-' + ${film.filmId}" class="collapse">
+                <td colspan="7">
+                    <div class="card card-body">
+                        <b>Description</b>
+                        <div id="description"> </div>
+                        <b>Special Features</b>
+                        <div id="specialFeatures"> </div>
+                        <b>Actor</b>
+                        <div id="actorName"> </div>
+                    </div>
+                </td>
+            </tr>
+        </th:block>
 
         </tbody>
     </table>
@@ -132,40 +137,37 @@
             });
 
             // 모든 테이블 행에 클릭 이벤트 리스너 추가
+            let currentOpenCollapse = null; // 현재 열려 있는 변수 추적
             document.querySelectorAll("table tbody tr").forEach(row => {
                 row.addEventListener('click', function() {
                     var filmId = row.getAttribute('data-film-id');
 
                     // AJAX로 데이터를 서버에 전송
                     fetch(`/sakila/detail?filmId=${filmId}`)
-                        .then(response => {
-                            if (!response.ok) {
-                                throw new Error('Network response was not ok');
-                            }
-                            return response.json();
-                        })
+                        .then(response => response.json())
                         .then(data => {
-                            console.log(data); // 받은 데이터 확인
-                            console.log(data.description);
                             var targetCollapse = document.getElementById(`collapse-${filmId}`);
 
-                            if (targetCollapse) {
-                                // 현재 열려있는 collapse 닫기
-                                var currentOpenCollapse = document.querySelector('.collapse.show');
-                                if (currentOpenCollapse && currentOpenCollapse !== targetCollapse) {
-                                    var bsCollapse = new bootstrap.Collapse(currentOpenCollapse);
-                                    bsCollapse.hide();
-                                }
-                                // 클릭된 collapse 토글
-                                var bsTargetCollapse = new bootstrap.Collapse(targetCollapse);
-                                bsTargetCollapse.toggle();
+                            targetCollapse.querySelector(`#description`).innerText = data[0].description;
+                            targetCollapse.querySelector(`#specialFeatures`).innerText = data[0].specialFeatures;
 
-                                // 영화 세부 정보 업데이트 ~
-                                targetCollapse.querySelector("#description").innerText = data[0].description;
-                                targetCollapse.querySelector("#specialFeatures").innerText = data[0].specialFeatures;
-                                targetCollapse.querySelector("#actorName").innerText = data[0].actorName;
-
+                            var actorNames = [];
+                            for(var i = 0; i < data.length; i++) {
+                                actorNames.push(data[i].actorName);
                             }
+                            targetCollapse.querySelector(`#actorName`).innerText = actorNames.join(', ');
+
+                            // 현재 열려있는 collapse 닫기
+                            if (currentOpenCollapse && (currentOpenCollapse !== targetCollapse)) {
+                                var bsCollapse = new bootstrap.Collapse(currentOpenCollapse);
+                                bsCollapse.hide();
+                            }
+                            // 클릭된 collapse 토글
+                            var bsTargetCollapse = new bootstrap.Collapse(targetCollapse, {
+                               toggle: false
+                            });
+                            bsTargetCollapse.toggle();
+                            currentOpenCollapse = targetCollapse.classList.contains('show') ? null : targetCollapse;
                         })
                         .catch(error => console.error('Error:', error));
                 });
@@ -175,9 +177,6 @@
 
 
     </script>
-    <!-- 자바스크립트 끝
-    아니 결국은 AJAX fetch? 사용해야지 가능한거네 sumit은 지우자
-    -->
 
 </div>
 </body>
