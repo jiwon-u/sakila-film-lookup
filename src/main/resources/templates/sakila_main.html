@@ -67,11 +67,19 @@
             <td th:text="${film.category}"></td>
         </tr>
         <div th:each="film : ${film_page.content}" th:id="'collapse-' + ${film.filmId}" class="collapse">
-            <div class="card card-body">
-                <b th:text="${film.title}"></b>
-                <div th:text="${film.title}"></div>
-            </div>
+            <td colspan="7">
+                <div class="card card-body">
+                <h5 th:text="${film.title}"></h5>
+                <b> Description </b>
+                <div id="description"> </div>
+                <b> Special Features </b>
+                <div id="specialFeatures"> </div>
+                <b> Actor </b>
+                <div id="actorName"> </div>
+                </div>
+            </td>
         </div>
+
         </tbody>
     </table>
 
@@ -138,6 +146,7 @@
                         })
                         .then(data => {
                             console.log(data); // 받은 데이터 확인
+                            console.log(data.description);
                             var targetCollapse = document.getElementById(`collapse-${filmId}`);
 
                             if (targetCollapse) {
@@ -151,8 +160,11 @@
                                 var bsTargetCollapse = new bootstrap.Collapse(targetCollapse);
                                 bsTargetCollapse.toggle();
 
-                                // 영화 세부 정보 업데이트 ~ ddlvkxm tnwjd
-                                targetCollapse.querySelector('div').innerText = data.description;
+                                // 영화 세부 정보 업데이트 ~
+                                targetCollapse.querySelector("#description").innerText = data[0].description;
+                                targetCollapse.querySelector("#specialFeatures").innerText = data[0].specialFeatures;
+                                targetCollapse.querySelector("#actorName").innerText = data[0].actorName;
+
                             }
                         })
                         .catch(error => console.error('Error:', error));
