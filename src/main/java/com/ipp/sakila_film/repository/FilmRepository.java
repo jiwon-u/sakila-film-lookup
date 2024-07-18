@@ -1,6 +1,5 @@
 package com.ipp.sakila_film.repository;
 
-import com.ipp.sakila_film.dto.FilmAdditionalDetailDTO;
 import com.ipp.sakila_film.dto.FilmDetailDTO;
 import com.ipp.sakila_film.dto.FilmSummaryDTO;
 import com.ipp.sakila_film.entity.FilmEntity;
@@ -29,10 +28,10 @@ public interface FilmRepository extends JpaRepository<FilmEntity, Long>{
             "WHERE f.title LIKE %:kw% " +
             "ORDER BY f.title")
     Page<FilmSummaryDTO> getFilmSummaryList(@Param("kw") String kw, Pageable pageable);
+    // 간략한 필름 정보를 담은 리스트 페이지를 가져오는 함수 (키워드 필터링, 페이징 적용)
 
-
-    @Query("SELECT new com.ipp.sakila_film.dto.FilmAdditionalDetailDTO(" +
-            " f.filmId, f.description, f.specialFeatures, " +
+    @Query("SELECT new com.ipp.sakila_film.dto.FilmDetailDTO(" +
+            " f.description, f.specialFeatures, " +
             " CONCAT(a.firstName, ' ', a.lastName)) " +
             "FROM FilmEntity f " +
             "JOIN LanguageEntity l ON f.language = l " +
@@ -41,6 +40,7 @@ public interface FilmRepository extends JpaRepository<FilmEntity, Long>{
             "JOIN FilmActorEntity fa ON fa.filmEntity = f " +
             "JOIN ActorEntity a ON fa.actorEntity = a " +
             "WHERE f.filmId = :filmId")
-    List<FilmAdditionalDetailDTO> getFilmAdditionalDetail(@Param("filmId") Long filmId);
+    List<FilmDetailDTO> getFilmAdditionalDetail(@Param("filmId") Long filmId);
+    // filmId를 받아 특정 필름에 대한 추가 정보를 가져오는 함수
 
 }

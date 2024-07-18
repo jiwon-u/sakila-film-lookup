@@ -1,6 +1,5 @@
 package com.ipp.sakila_film.service;
 
-import com.ipp.sakila_film.dto.FilmAdditionalDetailDTO;
 import com.ipp.sakila_film.dto.FilmDetailDTO;
 import com.ipp.sakila_film.dto.FilmSummaryDTO;
 import com.ipp.sakila_film.repository.FilmRepository;
@@ -26,7 +25,7 @@ public class FilmService {
         return this.filmRepository.getFilmSummaryList(kw, pageable);
     }
 
-    public List<FilmAdditionalDetailDTO> getFilmAdditionalDetail(Long filmId) {
+    public List<FilmDetailDTO> getFilmAdditionalDetail(Long filmId) {
         return this.filmRepository.getFilmAdditionalDetail(filmId);
     }
 
