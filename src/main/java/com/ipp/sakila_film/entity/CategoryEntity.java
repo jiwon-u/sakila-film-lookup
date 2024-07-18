@@ -23,3 +23,4 @@ public class CategoryEntity {
 
     // last_update 생략
 }
+
