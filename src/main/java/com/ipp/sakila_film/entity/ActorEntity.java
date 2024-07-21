@@ -26,3 +26,4 @@ public class ActorEntity {
 
     // last_update 생략
 }
+

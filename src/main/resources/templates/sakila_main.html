@@ -39,7 +39,7 @@
 
 <div class="container my-2">
     <div class="row my-3 justify-content-end">
-        <div class="col-xl-3">
+        <div class="col-xl-3" id="inputForm">
             <div class="input-group input-group-sm">
                 <input type="text" class="form-control gray-200" placeholder="영화 제목을 입력하세요" id="search_kw"  aria-describedby="button-addon2" th:value="${kw}">
                 <button class="btn btn-sm btn-outline-secondary" type="button" id="btn_search">search</button>
@@ -67,7 +67,7 @@
                 <td th:utext="${film.title}"> </td>
                 <td th:text="${film.year}"></td>
                 <td th:text="${film.rating}"></td>
-                <td th:text="${film.length}"></td>
+                <td th:text="${film.hourMinuteLength()}"></td>
                 <td th:text="${film.language}"></td>
                 <td th:text="${film.category}"></td>
             </tr>
@@ -84,13 +84,12 @@
                 </td>
             </tr>
         </th:block>
-
         </tbody>
     </table>
 
 
-    <!-- 페이징 처리 시작 -->
-    <div th:if="${!film_page.isEmpty()}">
+    <!-- 페이징 처리 -->
+    <div th:if="${!film_page.isEmpty()}" id="paging">
         <ul class="pagination justify-content-center">
             <li class="page-item" th:classappend="${film_page.first ? 'disabled' : ''}">
                 <a class="page-link" href="javascript:void(0)" th:data-page="${film_page.number - 1}">이전</a>
@@ -107,21 +106,18 @@
     </div>
     <!-- 페이징 처리 끝 -->
 
-    <!-- 검색 폼 만들기 -->
     <form th:action="@{/sakila}" method="get" id="searchForm">
         <input type="hidden" id="kw" name="kw" th:value="${kw}">
         <input type="hidden" id="page" name="page" th:value="${film_page.number}">
     </form>
-    <!-- 검색 폼 끝 -->
 
-    <!-- 자바스크립트 시작 -->
     <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 
     <script type="text/javascript">
         document.addEventListener('DOMContentLoaded', (event) => {
-            const pageLinks = document.querySelectorAll(".page-link");
+            const pageLinks = document.querySelectorAll(".page-link"); // page 선택
             pageLinks.forEach(link => {
                 link.addEventListener('click', function() {
                     document.getElementById('page').value = this.dataset.page;
@@ -129,15 +125,16 @@
                 });
             });
 
-            const btnSearch = document.getElementById("btn_search");
+            const btnSearch = document.getElementById("btn_search"); // kw 검색
             btnSearch.addEventListener('click', function() {
                 document.getElementById('kw').value = document.getElementById('search_kw').value;
-                document.getElementById('page').value = 0; // 검색 버튼 클릭 시 0페이지부터 조회
+                document.getElementById('page').value = 0; // 검색 - 0 페이지부터 띄우기
                 document.getElementById('searchForm').submit();
             });
 
-            // 모든 테이블 행에 클릭 이벤트 리스너 추가
             let currentOpenCollapse = null; // 현재 열려 있는 변수 추적
+
+            // 모든 테이블 row에 클릭 이벤트 리스너 추가 -> filmID 해당하는 필름의 추가 정보 가져와 collapse에 업데이트
             document.querySelectorAll("table tbody tr").forEach(row => {
                 row.addEventListener('click', function() {
                     var filmId = row.getAttribute('data-film-id');
@@ -153,7 +150,7 @@
 
                             var actorNames = [];
                             for(var i = 0; i < data.length; i++) {
-                                actorNames.push(data[i].actorName);
+                                actorNames.push(data[i].actorName); // 출연 배우이름 하나의 리스트로
                             }
                             targetCollapse.querySelector(`#actorName`).innerText = actorNames.join(', ');
 

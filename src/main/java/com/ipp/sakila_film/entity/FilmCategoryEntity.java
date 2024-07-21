@@ -12,7 +12,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @IdClass(FilmCategoryPK.class)
 public class FilmCategoryEntity {
-
     @Id
     @ManyToOne
     @JoinColumn(name = "category_id", referencedColumnName = "category_id")
@@ -22,5 +21,6 @@ public class FilmCategoryEntity {
     @ManyToOne
     @JoinColumn(name = "film_id", referencedColumnName = "film_id")
     private FilmEntity filmEntityId;
-
 }
+
+

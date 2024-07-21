@@ -15,7 +15,6 @@ public class FilmEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "film_id")
     private Long filmId;
-
     private String title;
 
     @Column(nullable = false)
@@ -40,3 +39,4 @@ public class FilmEntity {
     // original_language_id, rental_duration, rental_rate
     // replacement_cost, last_update 생략
 }
+
